@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Fichas de treino · Matheus Scaldini</title>
+  <meta name="description" content="Montagem de fichas de treino com PDF A4 vetorial. Funciona offline, no computador e no celular.">
+  <meta name="theme-color" content="#141517">
+  <meta name="color-scheme" content="dark">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Fichas MS">
+  <link rel="icon" type="image/png" href="icons/favicon-64.png">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+</head>
+<body class="v-edit">
+  <header class="top">
+    <div class="top-in">
+      <div class="brand">
+        <svg viewBox="0 0 48 48" fill="none" stroke="#eceef1" aria-hidden="true"><polygon points="24,3.5 41.8,13.75 41.8,34.25 24,44.5 6.2,34.25 6.2,13.75" stroke-width="2.6" stroke-linejoin="round"/><polyline points="15.5,31.5 15.5,17.5 24,26 32.5,17.5 32.5,31.5" stroke-width="3.6" stroke-linejoin="miter" stroke-linecap="square"/></svg>
+        <div class="brand-t"><b>Fichas de treino</b><span class="status"><span data-aluno></span><span class="dot" aria-hidden="true">·</span><span data-save-state aria-live="polite">Carregando…</span></span></div>
+      </div>
+      <div class="seg desk-only" role="group" aria-label="Modo de exibição">
+        <button type="button" data-mode="edit" class="on" aria-pressed="true"><span data-icon="edit"></span>Editar</button>
+        <button type="button" data-mode="preview" aria-pressed="false"><span data-icon="eye"></span>Visualizar</button>
+      </div>
+      <div class="actions desk-only">
+        <button type="button" class="btn ghost" data-cmd="plans"><span data-icon="users"></span>Alunos</button>
+        <button type="button" class="btn ghost" data-cmd="new"><span data-icon="plus"></span>Novo</button>
+        <button type="button" class="btn" data-cmd="menu"><span data-icon="menu"></span>Mais</button>
+        <button type="button" class="btn ghost" data-cmd="install" hidden><span data-icon="install"></span>Instalar</button>
+        <button type="button" class="btn pri" data-cmd="pdf"><span data-icon="pdf"></span>Gerar PDF</button>
+      </div>
+      <button type="button" class="icon-btn mob-only" data-cmd="plans" aria-label="Alunos salvos"><span data-icon="users"></span></button>
+      <button type="button" class="icon-btn mob-only" data-cmd="menu" aria-label="Abrir menu"><span data-icon="menu"></span></button>
+    </div>
+    <div class="knurl"></div>
+  </header>
+
+  <div class="install-banner" id="install-banner" role="region" aria-label="Instalar aplicativo" hidden>
+    <p id="install-text"></p>
+    <div class="ib-act">
+      <button type="button" class="btn pri sm" id="install-go" hidden>Instalar</button>
+      <button type="button" class="ib" id="install-close" aria-label="Fechar aviso"><span data-icon="x"></span></button>
+    </div>
+  </div>
+
+  <main id="ed">
+    <section class="panel" id="sec-id"></section>
+    <section class="panel" id="sec-aluno"></section>
+    <section class="panel" id="sec-fichas"></section>
+    <p class="foot-note">Tudo o que você preenche é salvo automaticamente neste aparelho, inclusive as imagens e os vídeos. Use “Exportar backup” para levar os dados para outro aparelho.</p>
+  </main>
+
+  <section class="preview" id="preview" aria-label="Pré-visualização do PDF">
+    <div class="preview-cap"><strong>PDF A4</strong><span id="page-count"></span><button type="button" class="btn pri sm desk-only" data-cmd="pdf"><span data-icon="pdf"></span>Gerar PDF</button></div>
+    <p class="preview-note">A prévia mostra exatamente as páginas do PDF.<span class="mob-inline"> Use o gesto de pinça para ampliar.</span></p>
+    <div class="ovf-msg" id="ovf-msg" hidden></div>
+    <div id="report"><p class="loading">Montando páginas…</p></div>
+  </section>
+
+  <nav class="bottombar mob-only" aria-label="Ações principais">
+    <div class="seg" role="group" aria-label="Modo de exibição">
+      <button type="button" data-mode="edit" class="on" aria-pressed="true"><span data-icon="edit"></span>Editar</button>
+      <button type="button" data-mode="preview" aria-pressed="false"><span data-icon="eye"></span>Prévia A4</button>
+    </div>
+    <button type="button" class="btn pri" data-cmd="pdf"><span data-icon="pdf"></span>Gerar PDF</button>
+  </nav>
+
+  <div id="datalists"></div>
+  <input type="file" id="file-json" accept=".json,application/json" hidden>
+
+  <dialog id="menu" class="sheet-dlg" aria-label="Menu">
+    <div class="menu-list">
+      <button type="button" data-cmd="plans"><span data-icon="users"></span>Alunos salvos</button>
+      <button type="button" data-cmd="new"><span data-icon="plus"></span>Novo planejamento</button>
+      <button type="button" data-cmd="example"><span data-icon="star"></span>Carregar exemplo (Arthur Medrado)</button>
+      <button type="button" data-cmd="export"><span data-icon="download"></span>Exportar backup (.json)</button>
+      <button type="button" data-cmd="import"><span data-icon="upload"></span>Importar backup</button>
+      <button type="button" data-cmd="install" hidden><span data-icon="install"></span>Instalar o app</button>
+      <button type="button" data-cmd="clear" class="danger"><span data-icon="broom"></span>Limpar formulário</button>
+    </div>
+    <p class="menu-foot" id="app-version"></p>
+  </dialog>
+
+  <dialog id="plans" class="sheet-dlg" aria-labelledby="plans-h">
+    <h3 class="dlg-h" id="plans-h">Alunos salvos</h3>
+    <div class="dlg-b">
+      <p class="hint" id="plans-count"></p>
+      <ul class="evals" id="plans-list"></ul>
+    </div>
+    <div class="dlg-a">
+      <button type="button" class="btn" data-cmd="close-plans">Fechar</button>
+      <button type="button" class="btn pri" data-cmd="new"><span data-icon="plus"></span>Novo planejamento</button>
+    </div>
+  </dialog>
+
+  <dialog id="dlg" class="sheet-dlg"><h3 class="dlg-h" id="dlg-h"></h3><div class="dlg-b" id="dlg-b"></div><div class="dlg-a" id="dlg-a"></div></dialog>
+
+  <div class="busy" id="busy" hidden><div class="busy-box"><span class="spinner" aria-hidden="true"></span><span id="busy-msg">Processando…</span></div></div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
